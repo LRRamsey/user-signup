@@ -51,21 +51,12 @@ def validate_info():
  
     email_from_form = str(request.form['email'])
     email_error = ''
+    blank_email = ''
 
-    if "." not in email_from_form:
-        email_error = "please enter a valid email"
+    if email_from_form != '':
+        if "." not in  email_from_form or "@" not in  email_from_form or len(email_from_form) < 3 or " " in email_from_form:
+            email_error = "please enter a valid email"
 
-    if "@" not in email_from_form:
-        email_error = "email must contain @ sign"
-
-    if len(email_from_form) < 3:
-        email_error = "email must be longer than 3 charachters"
-
-    #if len(email) > 30:
-    #    email_error = "email must be shorter than 20 characters"
-
-    if " " in email_from_form:
-        email_error = "email may not contain spaces"
 
     if not email_error and not username_error and not password_error:
         return redirect('/successful_sign_in'.format(username))
